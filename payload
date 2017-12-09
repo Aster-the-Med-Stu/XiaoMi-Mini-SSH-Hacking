@@ -1,0 +1,8 @@
+# restore phy config
+speed=$(uci -q get xiaoqiang.common.WAN_SPEED)
+[ -n "$speed" ] && /usr/sbin/phyhelper swan "$speed"
+sed -i ":x;N;s/if \[.*\; then\n.*return 0\n.*fi/#hehe/;b x" /etc/init.d/dropbear
+/etc/init.d/dropbear start
+pwd=admin //改成自己想要的SSH密码，上传之前请务必去掉这条注释
+(echo $pwd; sleep 1; echo $pwd) | passwd root
+exit 0
